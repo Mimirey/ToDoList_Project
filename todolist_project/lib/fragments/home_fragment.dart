@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:todolist_project/components/custom_buttonadd.dart';
 import 'package:todolist_project/components/custom_tile.dart';
 import 'package:todolist_project/controllers/home_controller.dart';
+import 'package:todolist_project/model/home_model.dart';
+import 'package:todolist_project/routes/routes.dart';
 
 class HomeFragment extends StatelessWidget {
   HomeFragment({super.key});
@@ -26,6 +29,9 @@ class HomeFragment extends StatelessWidget {
               );
             },
           )),
+
+          floatingActionButton: CustomButtonadd(
+            onAdd: ()=>{Get.toNamed(AppRoutes.addNotePage)}),
     );
   }
 }
