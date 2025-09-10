@@ -6,7 +6,7 @@ import 'package:todolist_project/controllers/home_controller.dart';
 
 class HomeFragment extends StatelessWidget {
   HomeFragment({super.key});
-  HomeController homeController= Get.find<HomeController>();
+  final homeController= Get.find<HomeController>();
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,11 @@ class HomeFragment extends StatelessWidget {
                 judul: homeController.notes[index].judul,
                 kegiatan: homeController.notes[index].kegiatan,
                 done: homeController.notes[index].isDone,
-                onChanged: (_) => homeController.toogleDone(index),
+                onChanged: (val){
+                  if(val == true){
+                    homeController.completeNoteAt(index);
+                  }
+                }
               );
             },
           )),
