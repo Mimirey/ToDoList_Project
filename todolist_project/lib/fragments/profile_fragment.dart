@@ -13,8 +13,7 @@ class ProfileFragment extends StatelessWidget {
         centerTitle: true,
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: ListView(
           children: [
             // Aqil
             Card(
@@ -29,7 +28,7 @@ class ProfileFragment extends StatelessWidget {
                   children: const [
                     CircleAvatar(
                       radius: 50,
-                      backgroundImage: AssetImage("assets/aqil.png"),
+                      backgroundImage: AssetImage("assets/aqil08.png"),
                     ),
                     SizedBox(height: 12),
                     Text(
@@ -70,7 +69,7 @@ class ProfileFragment extends StatelessWidget {
                   children: const [
                     CircleAvatar(
                       radius: 50,
-                      backgroundImage: AssetImage("assets/myra.png"),
+                      backgroundImage: AssetImage("assets/myra25.png"),
                     ),
                     SizedBox(height: 12),
                     Text(
@@ -124,7 +123,7 @@ class ProfileFragment extends StatelessWidget {
                     ),
                     SizedBox(height: 6),
                     Text(
-                      "Absen: 32",
+                      "Absen: 34",
                       style: TextStyle(fontSize: 14, color: Colors.yellow),
                       textAlign: TextAlign.center,
                     ),
