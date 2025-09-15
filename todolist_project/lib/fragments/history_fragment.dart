@@ -16,15 +16,25 @@ class HistoryFragment extends StatelessWidget {
       return ListView.builder(
         itemCount: homeController.completedNotes.length,
         itemBuilder: (context, index){
-          return CustomTile(
-            judul: homeController.completedNotes[index].judul, 
-            kegiatan: homeController.completedNotes[index].kegiatan, 
-            done: homeController.completedNotes[index].isDone,
-            onChanged: (val){
-              if (val == false) {
-                homeController.uncompleteNoteAt(index);
-              }
-            },);
+          return Row(
+            children: [
+              Expanded(
+                child: CustomTile(
+                  judul: homeController.completedNotes[index].judul, 
+                  kegiatan: homeController.completedNotes[index].kegiatan, 
+                  done: homeController.completedNotes[index].isDone,
+                  deadline: homeController.completedNotes[index].deadline,
+                  onChanged: (val){
+                    if (val == false) {
+                      homeController.uncompleteNoteAt(index);
+                    }
+                  },),
+              ),
+               IconButton(onPressed: (){
+                    homeController.completedNotes.removeAt(index);
+                  }, icon: const Icon(Icons.delete,color: Colors.red,))
+            ],
+          );
         
       });
     });

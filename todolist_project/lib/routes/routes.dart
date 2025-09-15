@@ -4,4 +4,5 @@ class AppRoutes{
   static const String historyFragment='/historyFragment';
   static const String profileFragment='/profileFragment';
   static const String addNotePage='/addNotePage';
+  static const String editNotePage='/editNotePage';
 }
