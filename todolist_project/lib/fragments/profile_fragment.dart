@@ -110,7 +110,7 @@ class ProfileFragment extends StatelessWidget {
                   children: const [
                     CircleAvatar(
                       radius: 50,
-                      backgroundImage: AssetImage("assets/sylvi.png"),
+                      backgroundImage: AssetImage("assets/sylvi34.png"),
                     ),
                     SizedBox(height: 12),
                     Text(
