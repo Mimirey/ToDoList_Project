@@ -5,4 +5,5 @@ class AppRoutes{
   static const String profileFragment='/profileFragment';
   static const String addNotePage='/addNotePage';
   static const String editNotePage='/editNotePage';
+  static const String loginPage='/loginPage';
 }
