@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:intl/intl.dart';
 
 import 'package:flutter/material.dart';
+import 'package:todolist_project/components/custom_colors.dart';
 
 class CustomTile extends StatelessWidget {
   final String judul;
@@ -28,10 +29,11 @@ class CustomTile extends StatelessWidget {
         : null;
     
     return Card(
+      color: Colors.transparent,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
       ),
-      elevation: 4,
+      elevation: 0,
       margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
       child: ListTile(
         contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -43,9 +45,9 @@ class CustomTile extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(6),
             ),
-            activeColor: Colors.deepPurple,
-            checkColor: Colors.white,
-          ),
+            activeColor: AppColors.primary,
+            checkColor: AppColors.textPrimary,
+          ),  
         ),
         title: Text(
           judul,
@@ -56,6 +58,7 @@ class CustomTile extends StatelessWidget {
             color: done ? Colors.grey : Colors.black87,
           ),
         ),
+        
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start, 
           children: [

@@ -8,12 +8,7 @@ class CustomButtonadd extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
-      onPressed: () {
-        onAdd();
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text('Item Added')));
-      },
+      onPressed: () {},
       child: Icon(Icons.add),
     );
   }

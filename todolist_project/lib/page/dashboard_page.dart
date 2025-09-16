@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:todolist_project/components/custom_colors.dart';
 import 'package:todolist_project/controllers/dashboard_controller.dart';
 
 class DashboardPage extends StatelessWidget {
@@ -11,7 +12,6 @@ class DashboardPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(()=> Scaffold(
-      appBar: AppBar(title: Text("Halaman Dashboard")),
       body: dashboardController.pages[dashboardController.selectedIndex.value],
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: dashboardController.selectedIndex.value,

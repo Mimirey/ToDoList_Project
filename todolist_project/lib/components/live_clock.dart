@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:todolist_project/components/custom_colors.dart';
 import 'package:todolist_project/controllers/clock_controller.dart';
 
 class LiveClock extends StatelessWidget {
@@ -28,17 +29,18 @@ Widget build(BuildContext context) {
           formattedDate,
           style: const TextStyle(
             fontSize: 16,
-            fontWeight: FontWeight.w400,
-            color: Colors.grey,
+            fontWeight: FontWeight.w600,  
+            // color: AppColors.primary
           ),
         ),
-        const SizedBox(height: 4),
+        
         Text(
           formattedTime,
           style: textStyle ??
               const TextStyle(
                 fontSize: 32,
                 fontWeight: FontWeight.bold,
+                // color: AppColors.primary
               ),
         ),
       ],
