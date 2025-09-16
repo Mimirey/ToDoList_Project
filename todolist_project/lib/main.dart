@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:todolist_project/components/custom_colors.dart';
 import 'package:todolist_project/page/dashboard_page.dart';
 import 'package:todolist_project/pages.dart';
 import 'package:todolist_project/routes/routes.dart';
@@ -20,7 +21,8 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        primaryColor: AppColors.textPrimary,
+        colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primary),
       ),
       initialRoute: AppRoutes.loginPage,
       getPages: AppPages.pages
