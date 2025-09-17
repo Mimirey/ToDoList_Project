@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:todolist_project/page/dashboard_page.dart';
+import 'package:todolist_project/routes/routes.dart';
 
 class LoginController {
   final TextEditingController usernameController = TextEditingController();
@@ -10,12 +13,7 @@ class LoginController {
     String password = passwordController.text;
 
     if (username == 'admin' && password == '123') {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) =>DashboardPage(),
-        ),
-      );
+      Get.offAllNamed(AppRoutes.dahsboardPage);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(

@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:todolist_project/binding/addNote_binding.dart';
 import 'package:todolist_project/binding/dashboard_binding.dart';
 import 'package:todolist_project/binding/editNote_binding.dart';
+import 'package:todolist_project/binding/login_binding.dart';
 import 'package:todolist_project/fragments/history_fragment.dart';
 import 'package:todolist_project/fragments/home_fragment.dart';
 import 'package:todolist_project/fragments/profile_fragment.dart';
@@ -19,6 +20,6 @@ class AppPages{
     GetPage(name: AppRoutes.profileFragment, page:()=>ProfileFragment()),
     GetPage(name: AppRoutes.addNotePage, page: ()=>AddnotePage(),binding: AddnoteBinding()),
     GetPage(name: AppRoutes.editNotePage, page:()=>EditnotePage(),binding: EditNoteBinding()),
-    GetPage(name: AppRoutes.loginPage, page: ()=>LoginPage())
+    GetPage(name: AppRoutes.loginPage, page: ()=>LoginPage(),binding: LoginBinding())
   ];
 }
