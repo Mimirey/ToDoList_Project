@@ -49,21 +49,21 @@ class _LoginPageState extends State<LoginPage> {
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 28,
-                  color: AppColors.primary
+                  color: AppColors.textSecondary
                 ),
               ),
               const SizedBox(height: 8),
 
               Text(
                 "Please fill username and password to login",
-                style: TextStyle(color: AppColors.primary),
+                style: TextStyle(color: AppColors.textSecondary),
               ),
               const SizedBox(height: 30),
 
               CustomTextfield(
                 controller: txtUsername, 
                 label: "Username", 
-                labelColor: AppColors.primary, 
+                labelColor: AppColors.primary3, 
                 pass: false, 
                 isNumber: false
               ),
@@ -73,7 +73,7 @@ class _LoginPageState extends State<LoginPage> {
                CustomTextfield(
                 controller: txtPass, 
                 label: "Password", 
-                labelColor: AppColors.primary, 
+                labelColor: AppColors.primary3, 
                 pass: true, 
                 isNumber: true
               ),
@@ -93,7 +93,7 @@ class _LoginPageState extends State<LoginPage> {
                     }
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.primary,
+                    backgroundColor: AppColors.primary2,
                     padding: const EdgeInsets.symmetric(vertical: 14),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(16),

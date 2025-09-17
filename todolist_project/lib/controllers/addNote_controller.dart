@@ -33,10 +33,15 @@ class AddnoteController extends GetxController{
     }
   }
    void saveNote() {
-    if (judulController.text.isEmpty || kegiatanController.text.isEmpty) {
+    if (judulController.text.isEmpty || kegiatanController.text.isEmpty ) {
       Get.snackbar("Error", "Harap isi judul dan kegiatan!");
       return;
     }
+
+    if (deadline.value == null) {
+    Get.snackbar("Error", "Harap pilih deadline!");
+    return;
+  }
 
     if (selectedPriority.value == null) {
       Get.snackbar("Error", "Harap pilih prioritas!");
