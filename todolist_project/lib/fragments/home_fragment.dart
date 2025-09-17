@@ -34,8 +34,6 @@ class HomeFragment extends StatelessWidget {
                   margin: const EdgeInsets.symmetric(vertical: 12),
                   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                   decoration: BoxDecoration(
-                    
-                    borderRadius: BorderRadius.circular(12),
                   ),
                   child: LiveClock(),
                 )
@@ -53,7 +51,7 @@ class HomeFragment extends StatelessWidget {
                 notes: homeController.santaiNotes,
               ),
 
-              const SizedBox(height: 75),
+             
             ],
           )),
       floatingActionButton: CustomButtonadd(
