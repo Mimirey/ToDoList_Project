@@ -30,7 +30,7 @@ Widget build(BuildContext context) {
           style: const TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w600,  
-            // color: AppColors.primary
+            color: AppColors.textSecondary
           ),
         ),
         
@@ -40,7 +40,7 @@ Widget build(BuildContext context) {
               const TextStyle(
                 fontSize: 32,
                 fontWeight: FontWeight.bold,
-                // color: AppColors.primary
+                color: AppColors.textSecondary
               ),
         ),
       ],

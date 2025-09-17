@@ -8,7 +8,7 @@ class CustomButtonadd extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
-      onPressed: () {},
+      onPressed: onAdd,
       child: Icon(Icons.add),
     );
   }

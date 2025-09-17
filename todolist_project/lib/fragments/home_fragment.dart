@@ -67,9 +67,9 @@ class HomeFragment extends StatelessWidget {
       title: Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
       initiallyExpanded: true, 
       children: notes.isEmpty
-          ? [const Padding(
-              padding: EdgeInsets.all(3.0),
-              child: Text("Tidak ada catatan."),
+          ? [Padding(
+              padding: const EdgeInsets.all(3.0),
+              child: Text("Tidak ada catatan.", style: TextStyle(color: Colors.grey[400]),),
             )]
           : notes.asMap().entries.map((entry) {
               final index = entry.key;

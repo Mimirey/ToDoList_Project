@@ -157,7 +157,17 @@ class ProfileFragment extends StatelessWidget {
                 myText: "Log Out", 
                 myTextColor: const Color.fromARGB(255, 192, 0, 0), 
                 onPressed: () {
-                  Get.offAllNamed(AppRoutes.loginPage);
+                  Get.defaultDialog(
+                    title: "Konfirmasi Logout",
+                    middleText: "Apakah kamu yakin ingin keluar?",
+                    textCancel: "Batal",
+                    textConfirm: "Ya, Keluar",
+                    confirmTextColor: AppColors.textPrimary,
+                    onConfirm: () {
+                      Get.offAllNamed(AppRoutes.loginPage);
+                    },
+                    onCancel: () {},
+                  );
                 },
               ),
             )

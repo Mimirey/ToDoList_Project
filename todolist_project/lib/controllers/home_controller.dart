@@ -6,8 +6,7 @@ import 'package:todolist_project/model/sort_option.dart';
 class HomeController extends GetxController{
   var notes=<Notes>
   [
-    Notes(judul: "Kegiatan 1", kegiatan: "Nyuci piring" ),
-    Notes(judul: "Kegiatan 2", kegiatan: "Makan")
+    
   ].obs;
 
   var completedNotes = <Notes>[].obs;
