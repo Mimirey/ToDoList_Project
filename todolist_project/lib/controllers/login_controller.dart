@@ -1,31 +1,54 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:todolist_project/page/dashboard_page.dart';
 import 'package:todolist_project/routes/routes.dart';
 
-class LoginController {
-  final TextEditingController usernameController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+class LoginController extends GetxController {
+  // 🔹 TextEditingController untuk input
+  final usernameController = TextEditingController();
+  final passwordController = TextEditingController();
 
+  // 🔹 State untuk toggle password visibility
+  var isPasswordVisible = false.obs;
+
+  // 🔹 Toggle password show/hide
+  void togglePasswordVisibility() {
+    isPasswordVisible.value = !isPasswordVisible.value;
+  }
+
+  // 🔹 Login sederhana (bisa dikembangkan)
   void login(BuildContext context) {
-    String username = usernameController.text;
-    String password = passwordController.text;
+    String username = usernameController.text.trim();
+    String password = passwordController.text.trim();
 
+    if (username.isEmpty || password.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Username atau password tidak boleh kosong!"),
+          backgroundColor: Colors.orange,
+        ),
+      );
+      return;
+    }
+
+    // Contoh login sederhana
     if (username == 'admin' && password == '123') {
+      // 🔹 Pastikan nama route benar
       Get.offAllNamed(AppRoutes.dahsboardPage);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text("Gagal Login!"),
+          content: Text("Gagal Login! Username atau password salah."),
           backgroundColor: Colors.red,
         ),
       );
     }
   }
 
-  void dispose() {
+  // 🔹 Dispose controller
+  @override
+  void onClose() {
     usernameController.dispose();
     passwordController.dispose();
+    super.onClose();
   }
 }

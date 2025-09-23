@@ -5,49 +5,41 @@ import 'package:todolist_project/components/custom_colors.dart';
 import 'package:todolist_project/components/custom_dropdown.dart';
 import 'package:todolist_project/components/custom_textfield.dart';
 import 'package:todolist_project/controllers/editNote_controller.dart';
-import 'package:todolist_project/model/sort_option.dart' show SortOption, SortOptionExtension;
+import 'package:todolist_project/model/sort_option.dart';
 
 class EditnotePage extends StatelessWidget {
   EditnotePage({super.key});
+  final editController = Get.find<EditnoteController>(); // 🔹 ambil controller edit, bukan AddnoteController
 
   @override
   Widget build(BuildContext context) {
-    final editController = Get.find<EditnoteController>();
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          "Edit Note",
-          style: TextStyle(
-            fontWeight: FontWeight.w500,
-            fontSize: 20,
-            color: AppColors.primary,
-          ),
-        ),
-        centerTitle: true,
-        toolbarHeight: 35,
-      ),
+      appBar: AppBar(title: const Text("Edit Catatan")),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: SingleChildScrollView(
           child: Wrap(
-            runSpacing: 12, 
+            runSpacing: 12,
             children: [
+              // 🔹 Judul
               CustomTextfield(
                 controller: editController.judulController,
-                labelColor: AppColors.primary3,
+                label: 'Judul',
+                labelColor: AppColors.primary,
                 pass: false,
                 isNumber: false,
-                label: 'Judul',
               ),
+              // 🔹 Kegiatan
               CustomTextfield(
                 controller: editController.kegiatanController,
-                labelColor: AppColors.primary3,
+                label: 'Kegiatan',
+                labelColor: AppColors.primary,
                 pass: false,
                 isNumber: false,
-                label: 'Kegiatan',
               ),
+              // 🔹 Deadline
               Obx(() => ListTile(
-                    contentPadding: EdgeInsets.zero, 
+                    contentPadding: EdgeInsets.zero,
                     title: Text(
                       editController.deadline.value == null
                           ? "Pilih Deadline"
@@ -57,22 +49,22 @@ class EditnotePage extends StatelessWidget {
                     trailing: const Icon(Icons.calendar_today),
                     onTap: () => editController.pickDeadline(context),
                   )),
+              // 🔹 Dropdown Prioritas
               Obx(() => CustomDropdown<SortOption>(
                     label: "Prioritas",
                     items: SortOption.values,
-                    value: editController.selectedPriority.value,
+                    value: editController.selectedPriority.value, // 🔹 ambil dari controller
                     itemLabel: (p) => p.label,
                     onChanged: (val) {
-                      editController.selectedPriority.value = val;
+                      if (val != null)
+                        editController.selectedPriority.value = val; // 🔹 update controller
                     },
                   )),
-            
+              // 🔹 Tombol Update
               CustomButton(
                 myText: "Update",
-                myTextColor: Colors.red,
-                onPressed: () {
-                  editController.updateNotes();
-                },
+                myTextColor: AppColors.primary,
+                onPressed: editController.updateNotes,
               ),
             ],
           ),

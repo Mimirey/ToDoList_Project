@@ -17,7 +17,9 @@ class LoginPage extends StatelessWidget {
         title: const Text(
           "Login",
           style: TextStyle(
-              fontWeight: FontWeight.w500, fontSize: 20, color: AppColors.textPrimary),
+              fontWeight: FontWeight.w500,
+              fontSize: 20,
+              color: AppColors.textPrimary),
         ),
         backgroundColor: AppColors.background,
         centerTitle: true,
@@ -54,33 +56,37 @@ class LoginPage extends StatelessWidget {
               Container(
                 margin: const EdgeInsets.only(bottom: 16),
                 child: CustomTextfield(
-                    controller: loginController.usernameController,
-                    label: "Username",
-                    labelColor: AppColors.primary3,
-                    pass: false,
-                    isNumber: false),
+                  controller: loginController.usernameController,
+                  label: "Username",
+                  labelColor: AppColors.primary3,
+                  pass: false,
+                  isNumber: false,
+                ),
               ),
 
-              // Password field
+              // Password field angka saja dengan show/hide
               Container(
                 margin: const EdgeInsets.only(bottom: 24),
-                child: CustomTextfield(
-                    controller: loginController.passwordController,
-                    label: "Password",
-                    labelColor: AppColors.primary3,
-                    pass: true,
-                    isNumber: true),
+                child: Obx(() => CustomTextfield(
+                controller: loginController.passwordController,
+                label: "Password",
+                labelColor: AppColors.primary3,
+                pass: !loginController.isPasswordVisible.value,
+                isNumber: true,
+                onSuffixIconTap: loginController.togglePasswordVisibility,
+              )),
               ),
 
               // Login button
               Container(
                 margin: const EdgeInsets.only(top: 8),
                 child: CustomButton(
-                    myText: "Login",
-                    myTextColor: AppColors.primary2,
-                    onPressed: () {
-                      loginController.login(context);
-                    }),
+                  myText: "Login",
+                  myTextColor: AppColors.primary2,
+                  onPressed: () {
+                    loginController.login(context);
+                  },
+                ),
               ),
             ],
           ),

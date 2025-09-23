@@ -17,10 +17,11 @@ class AddnotePage extends StatelessWidget {
       appBar: AppBar(title: const Text("Tambah Catatan")),
       body: Padding(
         padding: const EdgeInsets.all(16),
-        child: SingleChildScrollView( 
+        child: SingleChildScrollView(
           child: Wrap(
-            runSpacing: 12, 
+            runSpacing: 12,
             children: [
+              // Judul
               CustomTextfield(
                 controller: addNoteController.judulController,
                 label: 'Judul',
@@ -28,6 +29,7 @@ class AddnotePage extends StatelessWidget {
                 pass: false,
                 isNumber: false,
               ),
+              // Kegiatan
               CustomTextfield(
                 controller: addNoteController.kegiatanController,
                 label: 'Kegiatan',
@@ -35,26 +37,34 @@ class AddnotePage extends StatelessWidget {
                 pass: false,
                 isNumber: false,
               ),
-              Obx(() => ListTile(
-                    contentPadding: EdgeInsets.zero, 
-                    title: Text(
-                      addNoteController.deadline.value == null
-                          ? "Pilih Deadline"
-                          : "Deadline: ${addNoteController.deadline.value!.toLocal().toString().split(' ')[0]}",
-                      style: const TextStyle(fontSize: 16),
-                    ),
-                    trailing: const Icon(Icons.calendar_today),
-                    onTap: () => addNoteController.pickDeadline(context),
-                  )),
-              Obx(() => CustomDropdown<SortOption>(
-                    label: "Prioritas",
-                    items: SortOption.values,
-                    value: addNoteController.selectedPriority.value,
-                    itemLabel: (p) => p.label,
-                    onChanged: (val) {
-                      addNoteController.selectedPriority.value = val;
-                    },
-                  )),
+              // Deadline
+              Obx(
+                () => ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  title: Text(
+                    addNoteController.deadline.value == null
+                        ? "Pilih Deadline"
+                        : "Deadline: ${addNoteController.deadline.value!.toLocal().toString().split(' ')[0]}",
+                    style: const TextStyle(fontSize: 16),
+                  ),
+                  trailing: const Icon(Icons.calendar_today),
+                  onTap: () => addNoteController.pickDeadline(context),
+                ),
+              ),
+              // Dropdown Prioritas
+              Obx(
+                () => CustomDropdown<SortOption>(
+                  label: "Prioritas",
+                  items: SortOption.values,
+                  value: addNoteController.selectedPriority.value ??
+                      SortOption.santai, // default Santai
+                  itemLabel: (p) => p.label,
+                  onChanged: (val) {
+                    if (val != null) addNoteController.selectedPriority.value = val;
+                  },
+                ),
+              ),
+              // Tombol Simpan
               CustomButton(
                 myText: "Simpan",
                 myTextColor: AppColors.primary,
