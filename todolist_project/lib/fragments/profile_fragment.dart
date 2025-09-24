@@ -4,13 +4,16 @@ import 'package:get/get.dart';
 import 'package:get/instance_manager.dart';
 import 'package:todolist_project/components/custom_button.dart';
 import 'package:todolist_project/components/custom_colors.dart';
+import 'package:todolist_project/controllers/splashscreen_controller.dart';
 import 'package:todolist_project/routes/routes.dart';
 
 class ProfileFragment extends StatelessWidget {
   ProfileFragment({super.key});
 
+  final controller= Get.find<SplashscreenController>();
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
         appBar: AppBar(
           title: const Text("Profile", style: TextStyle(
@@ -164,7 +167,7 @@ class ProfileFragment extends StatelessWidget {
                     textConfirm: "Ya, Keluar",
                     confirmTextColor: AppColors.textPrimary,
                     onConfirm: () {
-                      Get.offAllNamed(AppRoutes.loginPage);
+                      controller.logout();
                     },
                     onCancel: () {},
                   );

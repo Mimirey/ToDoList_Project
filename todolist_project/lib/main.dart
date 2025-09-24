@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:todolist_project/components/custom_colors.dart';
+import 'package:todolist_project/controllers/splashscreen_controller.dart';
 import 'package:todolist_project/page/dashboard_page.dart';
 import 'package:todolist_project/pages.dart';
 import 'package:todolist_project/routes/routes.dart';
 
 Future<void> main() async {
    await initializeDateFormatting('id_ID', null);
+   Get.put(SplashscreenController(), permanent: true);
   runApp(const MyApp());
 }
 
@@ -24,7 +28,7 @@ class MyApp extends StatelessWidget {
         primaryColor: AppColors.textPrimary,
         colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primary),
       ),
-      initialRoute: AppRoutes.loginPage,
+      initialRoute: AppRoutes.splashPage,
       getPages: AppPages.pages
     );
   }
