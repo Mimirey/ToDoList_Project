@@ -6,4 +6,5 @@ class AppRoutes{
   static const String addNotePage='/addNotePage';
   static const String editNotePage='/editNotePage';
   static const String loginPage='/loginPage';
+  static const String splashPage='/splashPage';
 }

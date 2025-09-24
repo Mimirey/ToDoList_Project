@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todolist_project/routes/routes.dart';
 
 class LoginController extends GetxController {
@@ -16,7 +17,7 @@ class LoginController extends GetxController {
   }
 
   // 🔹 Login sederhana (bisa dikembangkan)
-  void login(BuildContext context) {
+  Future<void> login(BuildContext context) async {
     String username = usernameController.text.trim();
     String password = passwordController.text.trim();
 
@@ -32,7 +33,8 @@ class LoginController extends GetxController {
 
     // Contoh login sederhana
     if (username == 'admin' && password == '123') {
-      // 🔹 Pastikan nama route benar
+      final prefs= await SharedPreferences.getInstance();
+      prefs.setString("username", usernameController.text.toString());
       Get.offAllNamed(AppRoutes.dahsboardPage);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
