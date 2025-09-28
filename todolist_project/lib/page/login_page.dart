@@ -12,18 +12,20 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey.shade100,
+      backgroundColor: AppColors.background, // 🔹 pakai ungu gelap reuse
       appBar: AppBar(
         title: const Text(
           "Login",
           style: TextStyle(
-              fontWeight: FontWeight.w500,
-              fontSize: 20,
-              color: AppColors.textPrimary),
+            fontWeight: FontWeight.w600,
+            fontSize: 20,
+            color: Colors.white, // kontras dengan AppBar ungu
+          ),
         ),
-        backgroundColor: AppColors.background,
+        backgroundColor: AppColors.primary, // 🔹 konsisten seperti Profile
         centerTitle: true,
         toolbarHeight: 50,
+        elevation: 0,
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -31,50 +33,53 @@ class LoginPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              // Title
               Container(
-                margin: const EdgeInsets.only(bottom: 12),
+                margin: const EdgeInsets.only(bottom: 12, top: 40),
                 child: Text(
                   "Welcome!",
                   style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 28,
-                      color: AppColors.textSecondary),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 28,
+                    color: AppColors.textPrimary,
+                  ),
                 ),
               ),
 
-              // Subtitle
               Container(
                 margin: const EdgeInsets.only(bottom: 24),
                 child: Text(
                   "Please fill username and password to login",
-                  style: TextStyle(color: AppColors.textSecondary),
+                  style: TextStyle(
+                    color: AppColors.textSecondary,
+                    fontSize: 14,
+                  ),
+                  textAlign: TextAlign.center,
                 ),
               ),
 
-              // Username field
               Container(
                 margin: const EdgeInsets.only(bottom: 16),
                 child: CustomTextfield(
                   controller: loginController.usernameController,
                   label: "Username",
-                  labelColor: AppColors.primary3,
+                  labelColor: AppColors.primary2,
                   pass: false,
                   isNumber: false,
                 ),
               ),
 
-              // Password field angka saja dengan show/hide
               Container(
                 margin: const EdgeInsets.only(bottom: 24),
-                child: Obx(() => CustomTextfield(
-                controller: loginController.passwordController,
-                label: "Password",
-                labelColor: AppColors.primary3,
-                pass: !loginController.isPasswordVisible.value,
-                isNumber: true,
-                onSuffixIconTap: loginController.togglePasswordVisibility,
-              )),
+                child: Obx(
+                  () => CustomTextfield(
+                    controller: loginController.passwordController,
+                    label: "Password",
+                    labelColor: AppColors.primary2,
+                    pass: !loginController.isPasswordVisible.value,
+                    isNumber: true,
+                    onSuffixIconTap: loginController.togglePasswordVisibility,
+                  ),
+                ),
               ),
 
               // Login button
@@ -82,7 +87,8 @@ class LoginPage extends StatelessWidget {
                 margin: const EdgeInsets.only(top: 8),
                 child: CustomButton(
                   myText: "Login",
-                  myTextColor: AppColors.primary2,
+                  myTextColor: AppColors.textPrimary,
+                  // bgColor: AppColors.primary,
                   onPressed: () {
                     loginController.login(context);
                   },
