@@ -33,7 +33,7 @@ class LoginController extends GetxController {
 
     // Contoh login sederhana
     if (username == 'admin' && password == '123') {
-      final prefs= await SharedPreferences.getInstance();
+      final prefs = await SharedPreferences.getInstance();
       prefs.setString("username", usernameController.text.toString());
       Get.offAllNamed(AppRoutes.dahsboardPage);
     } else {
