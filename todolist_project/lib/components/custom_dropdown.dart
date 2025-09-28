@@ -8,7 +8,14 @@ class CustomDropdown<T> extends StatelessWidget {
   final ValueChanged<T?> onChanged;
   final String Function(T)? itemLabel;
 
-  const CustomDropdown({super.key, required this.label, required this.items, this.value, required this.onChanged, this.itemLabel});
+  const CustomDropdown({
+    super.key,
+    required this.label,
+    required this.items,
+    this.value,
+    required this.onChanged,
+    this.itemLabel,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -17,24 +24,33 @@ class CustomDropdown<T> extends StatelessWidget {
       children: [
         Text(
           label,
-          style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: AppColors.primary3),
+          style: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+            color: AppColors.primary3,
+          ),
         ),
         DropdownButtonFormField<T>(
-          initialValue:value,
-          items: items.map((T item){
-            return DropdownMenuItem<T>(
-              value: item,
-              child: Text(itemLabel != null ? itemLabel!(item) : item.toString()));
-          }).toList(),
+          value: value,
+          items:
+              items.map((T item) {
+                return DropdownMenuItem<T>(
+                  value: item,
+                  child: Text(
+                    itemLabel != null ? itemLabel!(item) : item.toString(),
+                  ),
+                );
+              }).toList(),
           onChanged: onChanged,
           decoration: InputDecoration(
-            contentPadding: const EdgeInsets.symmetric(horizontal:12,vertical: 8),
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(12))
+            contentPadding: const EdgeInsets.symmetric(
+              horizontal: 12,
+              vertical: 8,
+            ),
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
           ),
-        
-      ),
-    
-    ]
+        ),
+      ],
     );
   }
 }

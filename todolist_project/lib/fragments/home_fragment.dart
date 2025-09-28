@@ -15,35 +15,42 @@ class HomeFragment extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
+        elevation: 0,
         title: const Text(
           "Your List",
           style: TextStyle(
-            fontWeight: FontWeight.w500,
+            fontWeight: FontWeight.w600,
             fontSize: 20,
-            color: AppColors.textPrimary,
+            color: Colors.white,
           ),
         ),
-        backgroundColor: AppColors.background,
+        backgroundColor: AppColors.primary,
         centerTitle: true,
-        toolbarHeight: 50,
       ),
       body: Obx(
         () => ListView(
-          padding: const EdgeInsets.all(8),
+          padding: const EdgeInsets.all(12),
           children: [
             Center(
               child: Container(
                 margin: const EdgeInsets.symmetric(vertical: 12),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 10,
+                ),
+                decoration: BoxDecoration(
+                  color: AppColors.secondary,
+                  borderRadius: BorderRadius.circular(12),
+                ),
                 child: LiveClock(),
               ),
             ),
             _buildPrioritySection(
               title: "Urgent",
               notes: homeController.urgentNotes,
-              color: Colors.red,
+              color: Colors.redAccent,
             ),
             _buildPrioritySection(
               title: "Penting",
@@ -70,62 +77,69 @@ class HomeFragment extends StatelessWidget {
     required Color color,
   }) {
     return ExpansionTile(
-      key: PageStorageKey(title), // simpan state expand/collapse
-      tilePadding: EdgeInsets.zero, // hilangkan padding default
-      backgroundColor: Colors.transparent, // biar container tetap muncul
-      collapsedBackgroundColor: Colors.transparent,
+      key: PageStorageKey(title),
+      tilePadding: EdgeInsets.zero,
       initiallyExpanded: true,
       title: Container(
         padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
         decoration: BoxDecoration(
-          color: color, // warna sesuai kategori
+          color: color,
           borderRadius: BorderRadius.circular(8),
         ),
         child: Text(
           title,
           style: const TextStyle(
             fontWeight: FontWeight.bold,
-            color: Colors.white, // teks putih agar kontras
+            color: Colors.white,
           ),
         ),
       ),
-      children: notes.isEmpty
-          ? [
-              Padding(
-                padding: const EdgeInsets.all(3.0),
-                child: Text(
-                  "Tidak ada catatan.",
-                  style: TextStyle(color: Colors.grey[400]),
+      children:
+          notes.isEmpty
+              ? [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    "Tidak ada catatan.",
+                    style: TextStyle(color: Colors.grey[500]),
+                  ),
                 ),
-              )
-            ]
-          : notes.asMap().entries.map((entry) {
-              final note = entry.value;
-              return Row(
-                children: [
-                  Expanded(
-                    child: CustomTile(
-                      judul: note.judul,
-                      kegiatan: note.kegiatan,
-                      done: note.isDone,
-                      deadline: note.deadline,
-                      onChanged: (val) {
-                        if (val == true) {
-                          homeController.completeNoteAt(note);
-                        }
-                      },
-                    ),
+              ]
+              : notes.asMap().entries.map((entry) {
+                final note = entry.value;
+                return Card(
+                  margin: const EdgeInsets.symmetric(vertical: 6),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
                   ),
-                  IconButton(
-                    onPressed: () => Get.toNamed(
-                      AppRoutes.editNotePage,
-                      arguments: note,
-                    ),
-                    icon: const Icon(Icons.edit, color: AppColors.primary),
+                  elevation: 2,
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: CustomTile(
+                          judul: note.judul,
+                          kegiatan: note.kegiatan,
+                          done: note.isDone,
+                          deadline: note.deadline,
+                          onChanged: (val) {
+                            if (val == true) {
+                              homeController.completeNoteAt(note);
+                            }
+                          },
+                        ),
+                      ),
+                      IconButton(
+                        onPressed:
+                            () => Get.toNamed(
+                              AppRoutes.editNotePage,
+                              arguments: note,
+                            ),
+                        icon: const Icon(Icons.edit, color: AppColors.primary),
+                      ),
+                    ],
                   ),
-                ],
-              );
-            }).toList(),
+                );
+              }).toList(),
     );
   }
 }

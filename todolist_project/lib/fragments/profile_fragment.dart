@@ -1,179 +1,88 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:get/get.dart';
-import 'package:get/instance_manager.dart';
-import 'package:todolist_project/components/custom_button.dart';
 import 'package:todolist_project/components/custom_colors.dart';
-import 'package:todolist_project/controllers/splashscreen_controller.dart';
-import 'package:todolist_project/routes/routes.dart';
 
 class ProfileFragment extends StatelessWidget {
   ProfileFragment({super.key});
 
-  final controller= Get.find<SplashscreenController>();
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
-        appBar: AppBar(
-          title: const Text("Profile", style: TextStyle(
-            fontWeight: FontWeight.w500,
-            fontSize: 20,
-            color: AppColors.textPrimary
-          ),),
-          backgroundColor: AppColors.background,
-          centerTitle: true,
-          toolbarHeight: 50,
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        elevation: 0,
+        title: const Text(
+          "Profile Page",
+          style: TextStyle(fontWeight: FontWeight.w600, color: Colors.white),
         ),
-      body: Center(
-        child: ListView(
+        backgroundColor: AppColors.primary,
+        centerTitle: true,
+      ),
+      body: ListView(
+        padding: const EdgeInsets.all(16),
+        children: [
+          _buildProfileCard(
+            name: "Aqil Zamzami Musthofa",
+            absen: "08",
+            image: "assets/aqil08.png",
+          ),
+          _buildProfileCard(
+            name: "Myra Isadora",
+            absen: "25",
+            image: "assets/myra25.png",
+          ),
+          _buildProfileCard(
+            name: "Sylviana Jelita Malik",
+            absen: "34",
+            image: "assets/sylvi34.png",
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildProfileCard({
+    required String name,
+    required String absen,
+    required String image,
+  }) {
+    return Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      margin: const EdgeInsets.only(bottom: 16),
+      elevation: 3,
+      child: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
           children: [
-            // Aqil
-            Card(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16),
+            CircleAvatar(radius: 50, backgroundImage: AssetImage(image)),
+            const SizedBox(height: 12),
+            Text(
+              name,
+              style: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: AppColors.textSecondary,
               ),
-              color: AppColors.secondary,
-              margin: EdgeInsets.all(20),
-              child: Padding(
-                padding: const EdgeInsets.all(10),
-                child: Column(
-                  children: const [
-                    CircleAvatar(
-                      radius: 40,
-                      backgroundImage: AssetImage("assets/aqil08.png"),
-                    ),
-                    Text(
-                      "Aqil Zamzami Musthofa",
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: AppColors.primary3,
-                      ),
-                      textAlign: TextAlign.center,
-                      
-                    ),
-                    Text(
-                      "08",
-                      style: TextStyle(fontSize: 12, color: AppColors.primary2, fontWeight: FontWeight.w600),
-                      textAlign: TextAlign.left,
-                    ),
-                    Text(
-                      "PPLG - SMK RUS",
-                      style: TextStyle(fontSize: 10, color: AppColors.primary, fontWeight: FontWeight.w600),
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
-                ),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 6),
+            Text(
+              "Absen: $absen",
+              style: const TextStyle(
+                fontSize: 14,
+                color: AppColors.primary,
+                fontWeight: FontWeight.w500,
               ),
             ),
-
-            // Myra
-            Card(
-              color: AppColors.secondary,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16),
+            const SizedBox(height: 4),
+            const Text(
+              "PPLG SMK RUS",
+              style: TextStyle(
+                fontSize: 14,
+                color: AppColors.primary,
+                fontWeight: FontWeight.w500,
               ),
-
-              margin: EdgeInsets.all(20),
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  children: const [
-                    CircleAvatar(
-                      radius: 40,
-                      backgroundImage: AssetImage("assets/myra25.png"),
-                    ),
-
-                    Text(
-                      "Myra Isadora",
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: AppColors.primary3,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-
-                    Text(
-                      "25",
-                      style: TextStyle(fontSize: 12, color: AppColors.primary2, fontWeight: FontWeight.w600),
-                      textAlign: TextAlign.center,
-                    ),
-
-                    Text(
-                      "PPLG - SMK RUS",
-                      style: TextStyle(fontSize: 10, color: AppColors.primary, fontWeight: FontWeight.w600),
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
-                ),
-              ),
+              textAlign: TextAlign.center,
             ),
-
-            // Sylvi
-            Card(
-              color: AppColors.secondary,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16),
-              ),
-              margin: EdgeInsets.all(20),
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  children: const [
-                    CircleAvatar(
-                      radius: 40,
-                      backgroundImage: AssetImage("assets/sylvi34.png"),
-                    ),
-
-                    Text(
-                      "Sylviana Jelita Malik",
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: AppColors.primary3,
-                        fontWeight: FontWeight.bold,
-                        
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-
-                    Text(
-                      "34",
-                      style: TextStyle(fontSize: 12, color: AppColors.primary2, fontWeight: FontWeight.w600),
-                      textAlign: TextAlign.center,
-                    ),
-
-                    Text(
-                      "PPLG - SMK RUS",
-                      style: TextStyle(fontSize: 10, color: AppColors.primary, fontWeight: FontWeight.w600),
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-
-            Padding(
-              padding: const EdgeInsets.all(35),
-              child: CustomButton(
-                myText: "Log Out", 
-                myTextColor: const Color.fromARGB(255, 192, 0, 0), 
-                onPressed: () {
-                  Get.defaultDialog(
-                    title: "Konfirmasi Logout",
-                    middleText: "Apakah kamu yakin ingin keluar?",
-                    textCancel: "Batal",
-                    textConfirm: "Ya, Keluar",
-                    confirmTextColor: AppColors.textPrimary,
-                    onConfirm: () {
-                      controller.logout();
-                    },
-                    onCancel: () {},
-                  );
-                },
-              ),
-            )
           ],
         ),
       ),

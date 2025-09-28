@@ -1,77 +1,93 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:todolist_project/components/custom_colors.dart';
 import 'package:todolist_project/components/custom_tile.dart';
 import 'package:todolist_project/controllers/home_controller.dart';
 
 class HistoryFragment extends StatelessWidget {
   HistoryFragment({super.key});
-  final homeController= Get.find<HomeController>();
+  final homeController = Get.find<HomeController>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white, // ✅ putih bersih
       appBar: AppBar(
+        elevation: 0,
+        backgroundColor: AppColors.primary,
+        centerTitle: true,
         title: const Text(
-        "History",
-        style: TextStyle(
-          fontWeight: FontWeight.w500,
-          fontSize: 20,
-          color: AppColors.textPrimary,
+          "History",
+          style: TextStyle(
+            fontWeight: FontWeight.w600,
+            fontSize: 20,
+            color: Colors.white,
+          ),
         ),
       ),
-      backgroundColor: AppColors.background,
-      centerTitle: true,
-      toolbarHeight: 50,
-      ),
 
-      body: Obx((){
-        
+      body: Obx(() {
         if (homeController.completedNotes.isEmpty) {
-          return const Center(
-            child: Text(
-              "Belum ada catatan selesai",
-              style: TextStyle(fontSize: 16, color: AppColors.textPrimary),
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                Icon(Icons.history, size: 60, color: AppColors.primary2),
+                SizedBox(height: 12),
+                Text(
+                  "Belum ada catatan selesai",
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: AppColors.textSecondary,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ],
             ),
           );
         }
-        
+
         return ListView.builder(
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.all(16),
           itemCount: homeController.completedNotes.length,
-          itemBuilder: (context, index){
-            return Container(
-              margin: const EdgeInsets.only(bottom: 8),
-              decoration: BoxDecoration(
-                color: AppColors.background2,
+          itemBuilder: (context, index) {
+            return Card(
+              elevation: 2,
+              shadowColor: AppColors.primary.withOpacity(0.2),
+              shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
               ),
-              
+              margin: const EdgeInsets.only(bottom: 12),
+              color: AppColors.secondary,
               child: Row(
                 children: [
                   Expanded(
                     child: CustomTile(
-                      judul: homeController.completedNotes[index].judul, 
-                      kegiatan: homeController.completedNotes[index].kegiatan, 
+                      judul: homeController.completedNotes[index].judul,
+                      kegiatan: homeController.completedNotes[index].kegiatan,
                       done: homeController.completedNotes[index].isDone,
                       deadline: homeController.completedNotes[index].deadline,
-                      onChanged: (val){
+                      onChanged: (val) {
                         if (val == false) {
                           homeController.uncompleteNoteAt(index);
                         }
-                      },),
+                      },
+                    ),
                   ),
-
-                IconButton(onPressed: (){
+                  IconButton(
+                    onPressed: () {
                       homeController.completedNotes.removeAt(index);
-                    }, icon: const Icon(Icons.delete,color: Colors.red,))
-              ],
-            ),
-          );
-        });
+                    },
+                    icon: const Icon(
+                      Icons.delete_outline,
+                      color: Colors.redAccent,
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
+        );
       }),
     );
   }
