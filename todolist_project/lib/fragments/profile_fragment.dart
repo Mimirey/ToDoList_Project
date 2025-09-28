@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:todolist_project/components/custom_colors.dart';
+import 'package:todolist_project/components/custom_button.dart';
+import 'package:todolist_project/routes/routes.dart';
 
 class ProfileFragment extends StatelessWidget {
   ProfileFragment({super.key});
@@ -7,7 +10,7 @@ class ProfileFragment extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.white, // ✅ putih bersih
       appBar: AppBar(
         elevation: 0,
         title: const Text(
@@ -34,6 +37,30 @@ class ProfileFragment extends StatelessWidget {
             name: "Sylviana Jelita Malik",
             absen: "34",
             image: "assets/sylvi34.png",
+          ),
+
+          // 🔴 Tombol Log Out
+          Padding(
+            padding: const EdgeInsets.only(top: 24, left: 8, right: 8),
+            child: CustomButton(
+              myText: "Log Out",
+              myTextColor: AppColors.textPrimary,
+              // bgColor: const Color.fromARGB(255, 192, 0, 0),
+              onPressed: () {
+                Get.defaultDialog(
+                  title: "Konfirmasi Logout",
+                  middleText: "Apakah kamu yakin ingin keluar?",
+                  textCancel: "Batal",
+                  textConfirm: "Ya, Keluar",
+                  confirmTextColor: Colors.white,
+                  buttonColor: AppColors.primary,
+                  onConfirm: () {
+                    Get.offAllNamed(AppRoutes.loginPage);
+                  },
+                  onCancel: () {},
+                );
+              },
+            ),
           ),
         ],
       ),
