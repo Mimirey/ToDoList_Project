@@ -1,14 +1,11 @@
 import 'package:get/get.dart';
+import 'package:todolist_project/db_todolist.';
 import 'package:todolist_project/model/home_model.dart';
-import 'package:todolist_project/model/sort_option.dart'; 
+import 'package:todolist_project/model/sort_option.dart';
 
-
-class HomeController extends GetxController{
-  var notes=<Notes>
-  [
-    
-  ].obs;
-
+class HomeController extends GetxController {
+  final db = NotesDB(); 
+  var notes = <Notes>[].obs;
   var completedNotes = <Notes>[].obs;
 
   List<Notes> get urgentNotes =>
@@ -20,29 +17,61 @@ class HomeController extends GetxController{
   List<Notes> get santaiNotes =>
       notes.where((note) => note.priority == SortOption.santai).toList();
 
+ 
+  Future<void> loadNotes() async {
+    final allNotes = await db.getNotes();
 
-   void completeNoteAt(Notes note) {
-    final i = notes.indexOf(note);
-    if (i != -1) {
-      
-      final updated = notes[i].copyWith(isDone: true);
+    
+    final List<Notes> typedNotes = allNotes.cast<Notes>();
 
-      
-      completedNotes.add(updated);
+    
+    notes.value = typedNotes.where((note) => !note.isDone).toList();
+    completedNotes.value = typedNotes.where((note) => note.isDone).toList();
 
-      notes.removeAt(i);
+    print("Loaded notes: ${typedNotes.map((e) => '${e.judul} - ${e.isDone}').toList()}");
+  }
+
+  
+  Future<void> addNote(Notes note) async {
+    await db.insertNote(note);
+    await loadNotes();
+  }
+
+  
+  Future<void> editNote(Notes note) async {
+    if (note.id != null) {
+      await db.updateNote(note.id!, note);
+      await loadNotes();
     }
   }
 
-  void updateNotes(int index, Notes note){
-    notes[index]= note;
-  }
-
-  void uncompleteNoteAt(int index) {
-    final note = completedNotes.removeAt(index);
-    notes.insert(0, note.copyWith(isDone: false));
+  
+  Future<void> deleteNote(int id) async {
+    await db.deleteNote(id);
+    await loadNotes();
   }
 
   
+  void completeNoteAt(Notes note) async {
+    final updated = note.copyWith(isDone: true);
+    if (note.id != null) {
+      await db.updateNote(note.id!, updated);
+      await loadNotes();
+    }
+  }
+
   
+  void uncompleteNoteAt(Notes note) async {
+    final updated = note.copyWith(isDone: false);
+    if (note.id != null) {
+      await db.updateNote(note.id!, updated);
+      await loadNotes();
+    }
+  }
+
+  @override
+  void onInit() {
+    super.onInit();
+    loadNotes();
+  }
 }

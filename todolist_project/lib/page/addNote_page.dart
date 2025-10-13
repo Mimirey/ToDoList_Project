@@ -5,12 +5,14 @@ import 'package:todolist_project/components/custom_colors.dart';
 import 'package:todolist_project/components/custom_dropdown.dart';
 import 'package:todolist_project/components/custom_textfield.dart';
 import 'package:todolist_project/controllers/addNote_controller.dart';
+import 'package:todolist_project/controllers/home_controller.dart';
 import 'package:todolist_project/model/sort_option.dart';
 
 class AddnotePage extends StatelessWidget {
   AddnotePage({super.key});
   final addNoteController = Get.find<AddnoteController>();
-
+  final homeController = Get.find<HomeController>();
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:todolist_project/controllers/home_controller.dart';
+import 'package:todolist_project/db_todolist.';
 import 'package:todolist_project/model/home_model.dart';
 import 'package:todolist_project/model/sort_option.dart';
 
@@ -13,22 +14,16 @@ class EditnoteController extends GetxController {
   final selectedPriority = Rx<SortOption>(SortOption.santai); // 🔹 langsung default Santai
 
   final homeController = Get.find<HomeController>();
+  final db = NotesDB();
 
   @override
   void onInit() {
     super.onInit();
-
-    // 🔹 ambil note dari arguments saat page dibuka
     note = Get.arguments as Notes;
 
-    // 🔹 inisialisasi TextEditingController dari note
     judulController = TextEditingController(text: note.judul);
     kegiatanController = TextEditingController(text: note.kegiatan);
-
-    // 🔹 set deadline dari note
     deadline.value = note.deadline;
-
-    // 🔹 set prioritas dari note, jika null pakai default Santai
     selectedPriority.value = note.priority ?? SortOption.santai;
   }
 
@@ -49,16 +44,27 @@ class EditnoteController extends GetxController {
     if (picked != null) deadline.value = picked;
   }
 
-  void updateNotes() {
-    final index = homeController.notes.indexOf(note);
-    if (index != -1) {
-      homeController.notes[index] = note.copyWith(
-        judul: judulController.text,
-        kegiatan: kegiatanController.text,
-        deadline: deadline.value,
-        priority: selectedPriority.value, // 🔹 ambil dari selectedPriority.value
-      );
+  Future<void> updateNotes() async {
+    if (judulController.text.isEmpty || kegiatanController.text.isEmpty) {
+      Get.snackbar("Error", "Harap isi judul dan kegiatan!");
+      return;
     }
-    Get.back();
+
+    final updated = note.copyWith(
+      judul: judulController.text,
+      kegiatan: kegiatanController.text,
+      deadline: deadline.value,
+      priority: selectedPriority.value,
+    );
+
+    
+    await db.updateNote(note.id!,updated);
+
+    
+    await homeController.loadNotes();
+
+    Get.snackbar("Berhasil", "Catatan berhasil diperbarui!");
+    Get.back(); 
   }
+
 }

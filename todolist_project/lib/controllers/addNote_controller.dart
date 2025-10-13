@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:todolist_project/controllers/home_controller.dart';
+import 'package:todolist_project/db_todolist.';
 import 'package:todolist_project/model/home_model.dart';
 import 'package:todolist_project/model/sort_option.dart';
 
@@ -11,6 +13,7 @@ class AddnoteController extends GetxController{
   late Rx<DateTime?> deadline;
   late Rx<SortOption?> selectedPriority;
   final homeController= Get.find<HomeController>();
+  final db= NotesDB();
 
   @override
   void onInit() {
@@ -32,34 +35,23 @@ class AddnoteController extends GetxController{
       deadline.value = picked;
     }
   }
-   void saveNote() {
-    if (judulController.text.isEmpty || kegiatanController.text.isEmpty ) {
-      Get.snackbar("Error", "Harap isi judul dan kegiatan!");
+   Future<void> saveNote() async {
+    if (judulController.text.isEmpty || kegiatanController.text.isEmpty) {
+      Get.snackbar("Error", "Judul dan kegiatan wajib diisi!");
       return;
     }
 
-    if (deadline.value == null) {
-    Get.snackbar("Error", "Harap pilih deadline!");
-    return;
-  }
-
-    if (selectedPriority.value == null) {
-      Get.snackbar("Error", "Harap pilih prioritas!");
-      return;
-    }
-
-    homeController.notes.add(
-      Notes(
-        judul: judulController.text,
-        kegiatan: kegiatanController.text,
-        deadline: deadline.value,
-        priority: selectedPriority.value!,
-      ),
+    final note = Notes(
+      judul: judulController.text,
+      kegiatan: kegiatanController.text,
+      deadline: deadline.value,
+      priority: selectedPriority.value!,
     );
 
-    Get.snackbar("Berhasil", "Catatan berhasil ditambahkan!");
+    await homeController.addNote(note);
 
-    Get.back(closeOverlays: true);
+    Get.back();
+    Get.snackbar("Berhasil", "Catatan berhasil ditambahkan!");
   }
 
   @override

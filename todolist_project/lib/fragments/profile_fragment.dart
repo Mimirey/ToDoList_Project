@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:todolist_project/components/custom_colors.dart';
 import 'package:todolist_project/components/custom_button.dart';
+import 'package:todolist_project/controllers/splashscreen_controller.dart';
 import 'package:todolist_project/routes/routes.dart';
 
 class ProfileFragment extends StatelessWidget {
   ProfileFragment({super.key});
+
+  SplashscreenController splashControl= Get.find<SplashscreenController>();
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +58,7 @@ class ProfileFragment extends StatelessWidget {
                   confirmTextColor: Colors.white,
                   buttonColor: AppColors.primary,
                   onConfirm: () {
-                    Get.offAllNamed(AppRoutes.loginPage);
+                    splashControl.logout();
                   },
                   onCancel: () {},
                 );
