@@ -51,6 +51,8 @@ class HistoryFragment extends StatelessWidget {
           padding: const EdgeInsets.all(16),
           itemCount: homeController.completedNotes.length,
           itemBuilder: (context, index) {
+
+            final note=homeController.completedNotes[index];
             return Card(
               elevation: 2,
               shadowColor: AppColors.primary.withOpacity(0.2),
@@ -69,14 +71,14 @@ class HistoryFragment extends StatelessWidget {
                       deadline: homeController.completedNotes[index].deadline,
                       onChanged: (val) {
                         if (val == false) {
-                          homeController.uncompleteNoteAt(index);
+                          homeController.uncompleteNoteAt(note);
                         }
                       },
                     ),
                   ),
                   IconButton(
                     onPressed: () {
-                      homeController.completedNotes.removeAt(index);
+                      homeController.deleteNote(note.id!);
                     },
                     icon: const Icon(
                       Icons.delete_outline,
