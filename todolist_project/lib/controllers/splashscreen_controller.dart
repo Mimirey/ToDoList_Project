@@ -3,8 +3,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todolist_project/routes/routes.dart';
 
 class SplashscreenController extends GetxController {
-
- 
   @override
   void onInit() {
     super.onInit();
