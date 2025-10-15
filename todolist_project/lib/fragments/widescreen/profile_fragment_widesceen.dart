@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:todolist_project/components/custom_button.dart';
 import 'package:todolist_project/components/custom_colors.dart';
+import 'package:todolist_project/controllers/profile_controller.dart';
 import 'package:todolist_project/controllers/responsive_controller.dart';
-import 'package:todolist_project/controllers/splashscreen_controller.dart';
 
 class ProfileFragmentWidesceen extends StatelessWidget {
   ProfileFragmentWidesceen({super.key});
 
-  final splashControl = Get.find<SplashscreenController>();
+  final profileController= Get.find<ProfileController>();
   final responsiveController = Get.find<ResponsiveController>();
 
   final List<Map<String, String>> profiles = [
@@ -76,7 +76,7 @@ class ProfileFragmentWidesceen extends StatelessWidget {
                   confirmTextColor: Colors.white,
                   buttonColor: AppColors.primary,
                   onConfirm: () {
-                    splashControl.logout();
+                    profileController.logout();
                   },
                   onCancel: () {},
                 );

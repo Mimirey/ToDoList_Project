@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:todolist_project/components/custom_button.dart';
-import 'package:todolist_project/components/custom_colors.dart';
-import 'package:todolist_project/components/custom_textfield.dart';
 import 'package:todolist_project/controllers/login_controller.dart';
 import 'package:todolist_project/page/mobile/login_page_mobile.dart';
 import 'package:todolist_project/page/widescreen/login_page_widescreen.dart';
