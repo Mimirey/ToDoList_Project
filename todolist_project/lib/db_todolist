@@ -1,29 +1,29 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import '../model/sort_option.dart';
-import '../model/home_model.dart';
+import '../model/home_model.dart'; 
 
-class NotesDB{
+class NotesDB {
   static final NotesDB _instance = NotesDB._internal();
-  factory NotesDB()=> _instance;
+  factory NotesDB() => _instance;
   NotesDB._internal();
 
   static Database? _db;
 
-  Future<Database> get db async{
+  Future<Database> get db async {
     if (_db != null) return _db!;
     _db = await _initDb();
     return _db!;
   }
 
   Future<Database> _initDb() async {
-    final dbPath= await getDatabasesPath();
-    final path = join (dbPath, 'notes.db');
+    final dbPath = await getDatabasesPath();
+    final path = join(dbPath, 'notes.db');
 
     return await openDatabase(
       path,
       version: 1,
-      onCreate: (db,version) async{
+      onCreate: (db, version) async {
         await db.execute('''
           CREATE TABLE notes(
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -40,44 +40,44 @@ class NotesDB{
 
   Future<int> insertNote(Notes note) async {
     final client = await db;
-    print("✅ INSERTED: ${note.judul} | ID: $result");
-    return client.insert('notes', {
+    final result = await client.insert('notes', {
       'judul': note.judul,
       'kegiatan': note.kegiatan,
       'isDone': note.isDone ? 1 : 0,
       'deadline': note.deadline?.toIso8601String(),
-      'priority': note.priority.name, // simpan enum sebagai string
+      'priority': note.priority.name,
     });
+    print("✅ INSERTED: ${note.judul} | ID: $result");
+    return result;
   }
 
   Future<List<Notes>> getNotes() async {
-  final client = await db;
-  final List<Map<String, dynamic>> maps = await client.query(
-    'notes',
-    orderBy: 'id DESC',
-  );
-  print("📦 FETCHED NOTES: ${result.length}");
-  return List<Notes>.generate(maps.length, (i) {
-    return Notes(
-      id: maps[i]['id'],
-      judul: maps[i]['judul'],
-      kegiatan: maps[i]['kegiatan'],
-      isDone: maps[i]['isDone'] == 1, 
-      deadline: maps[i]['deadline'] != null
-          ? DateTime.parse(maps[i]['deadline'])
-          : null,
-      priority: SortOption.values.firstWhere(
-        (e) => e.name == maps[i]['priority'],
-        orElse: () => SortOption.santai,
-      ),
-    );
-  });
-}
-
-   Future<int> updateNote(int id, Notes note) async {
     final client = await db;
-    print("✏️ UPDATED NOTE ID: $id | Rows affected: $result");
-    return client.update(
+    final List<Map<String, dynamic>> maps = await client.query(
+      'notes',
+      orderBy: 'id DESC',
+    );
+    print("📦 FETCHED NOTES: ${maps.length}");
+    return List<Notes>.generate(maps.length, (i) {
+      return Notes(
+        id: maps[i]['id'],
+        judul: maps[i]['judul'],
+        kegiatan: maps[i]['kegiatan'],
+        isDone: maps[i]['isDone'] == 1,
+        deadline: maps[i]['deadline'] != null
+            ? DateTime.parse(maps[i]['deadline'])
+            : null,
+        priority: SortOption.values.firstWhere(
+          (e) => e.name == maps[i]['priority'],
+          orElse: () => SortOption.santai,
+        ),
+      );
+    });
+  }
+
+  Future<int> updateNote(int id, Notes note) async {
+    final client = await db;
+    final rowsAffected = await client.update(
       'notes',
       {
         'judul': note.judul,
@@ -89,15 +89,18 @@ class NotesDB{
       where: 'id=?',
       whereArgs: [id],
     );
+    print("✏️ UPDATED NOTE ID: $id | Rows affected: $rowsAffected");
+    return rowsAffected;
   }
 
   Future<int> deleteNote(int id) async {
     final client = await db;
-    print("🗑️ DELETED NOTE ID: $id | Rows affected: $result");
-    return client.delete(
+    final rowsAffected = await client.delete(
       'notes',
       where: 'id=?',
       whereArgs: [id],
     );
+    print("🗑️ DELETED NOTE ID: $id | Rows affected: $rowsAffected");
+    return rowsAffected;
   }
 }

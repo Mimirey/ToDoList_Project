@@ -3,8 +3,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todolist_project/routes/routes.dart';
 
 class SplashscreenController extends GetxController {
-
- 
   @override
   void onInit() {
     super.onInit();
@@ -24,9 +22,6 @@ class SplashscreenController extends GetxController {
   logout() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.clear();
-
-    Get.delete<SplashscreenController>();
-
     Get.offAllNamed(AppRoutes.splashPage);
   }
 }

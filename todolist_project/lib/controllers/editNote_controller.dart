@@ -11,7 +11,9 @@ class EditnoteController extends GetxController {
   late TextEditingController kegiatanController;
 
   final deadline = Rx<DateTime?>(null); // 🔹 reactive deadline
-  final selectedPriority = Rx<SortOption>(SortOption.santai); // 🔹 langsung default Santai
+  final selectedPriority = Rx<SortOption>(
+    SortOption.santai,
+  ); // 🔹 langsung default Santai
 
   final homeController = Get.find<HomeController>();
   final db = NotesDB();
@@ -37,7 +39,8 @@ class EditnoteController extends GetxController {
   void pickDeadline(BuildContext context) async {
     final picked = await showDatePicker(
       context: context,
-      initialDate: deadline.value ?? DateTime.now(), // 🔹 pakai deadline note kalau ada
+      initialDate:
+          deadline.value ?? DateTime.now(), // 🔹 pakai deadline note kalau ada
       firstDate: DateTime(2020),
       lastDate: DateTime(2100),
     );
@@ -57,14 +60,11 @@ class EditnoteController extends GetxController {
       priority: selectedPriority.value,
     );
 
-    
-    await db.updateNote(note.id!,updated);
+    await db.updateNote(note.id!, updated);
 
-    
     await homeController.loadNotes();
 
     Get.snackbar("Berhasil", "Catatan berhasil diperbarui!");
-    Get.back(); 
+    Get.back();
   }
-
 }
