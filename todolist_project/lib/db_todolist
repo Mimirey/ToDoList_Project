@@ -40,7 +40,8 @@ class NotesDB {
 
   Future<int> insertNote(Notes note) async {
     final client = await db;
-    final result = await client.insert('notes', {
+    // print("✅ INSERTED: ${note.judul} | ID: $result");
+    return client.insert('notes', {
       'judul': note.judul,
       'kegiatan': note.kegiatan,
       'isDone': note.isDone ? 1 : 0,
@@ -77,7 +78,8 @@ class NotesDB {
 
   Future<int> updateNote(int id, Notes note) async {
     final client = await db;
-    final rowsAffected = await client.update(
+    // print("✏️ UPDATED NOTE ID: $id | Rows affected: $result");
+    return client.update(
       'notes',
       {
         'judul': note.judul,
@@ -95,7 +97,8 @@ class NotesDB {
 
   Future<int> deleteNote(int id) async {
     final client = await db;
-    final rowsAffected = await client.delete(
+    // print("🗑️ DELETED NOTE ID: $id | Rows affected: $result");
+    return client.delete(
       'notes',
       where: 'id=?',
       whereArgs: [id],
