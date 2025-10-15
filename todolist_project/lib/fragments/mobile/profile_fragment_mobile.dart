@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:todolist_project/components/custom_button.dart';
 import 'package:todolist_project/components/custom_colors.dart';
+import 'package:todolist_project/controllers/profile_controller.dart';
 import 'package:todolist_project/controllers/responsive_controller.dart';
 import 'package:todolist_project/controllers/splashscreen_controller.dart';
 
 class ProfileFragmentMobile extends StatelessWidget {
   ProfileFragmentMobile({super.key});
-  SplashscreenController splashControl = Get.find<SplashscreenController>();
+  final profileController= Get.find<ProfileController>();
   final responsiveController = Get.find<ResponsiveController>();
 
   @override
@@ -59,7 +60,7 @@ class ProfileFragmentMobile extends StatelessWidget {
                   confirmTextColor: Colors.white,
                   buttonColor: AppColors.primary,
                   onConfirm: () {
-                    splashControl.logout();
+                    profileController.logout();
                   },
                   onCancel: () {},
                 );
