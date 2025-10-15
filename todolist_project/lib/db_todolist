@@ -40,7 +40,7 @@ class NotesDB{
 
   Future<int> insertNote(Notes note) async {
     final client = await db;
-    print("✅ INSERTED: ${note.judul} | ID: $result");
+    // print("✅ INSERTED: ${note.judul} | ID: $result");
     return client.insert('notes', {
       'judul': note.judul,
       'kegiatan': note.kegiatan,
@@ -56,7 +56,7 @@ class NotesDB{
     'notes',
     orderBy: 'id DESC',
   );
-  print("📦 FETCHED NOTES: ${result.length}");
+  // print("📦 FETCHED NOTES: ${result.length}");
   return List<Notes>.generate(maps.length, (i) {
     return Notes(
       id: maps[i]['id'],
@@ -76,7 +76,7 @@ class NotesDB{
 
    Future<int> updateNote(int id, Notes note) async {
     final client = await db;
-    print("✏️ UPDATED NOTE ID: $id | Rows affected: $result");
+    // print("✏️ UPDATED NOTE ID: $id | Rows affected: $result");
     return client.update(
       'notes',
       {
@@ -93,7 +93,7 @@ class NotesDB{
 
   Future<int> deleteNote(int id) async {
     final client = await db;
-    print("🗑️ DELETED NOTE ID: $id | Rows affected: $result");
+    // print("🗑️ DELETED NOTE ID: $id | Rows affected: $result");
     return client.delete(
       'notes',
       where: 'id=?',

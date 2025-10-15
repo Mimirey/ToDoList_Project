@@ -35,7 +35,7 @@ class LoginController extends GetxController {
     if (username == 'admin' && password == '123') {
       final prefs = await SharedPreferences.getInstance();
       prefs.setString("username", usernameController.text.toString());
-      Get.offAllNamed(AppRoutes.dahsboardPage);
+      Get.offAllNamed(AppRoutes.dashboardPage);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(

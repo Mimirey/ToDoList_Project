@@ -12,7 +12,6 @@ import 'package:todolist_project/routes/routes.dart';
 
 Future<void> main() async {
    await initializeDateFormatting('id_ID', null);
-   Get.put(SplashscreenController(), permanent: true);
   runApp(const MyApp());
 }
 
