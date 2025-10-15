@@ -53,4 +53,10 @@ class LoginController extends GetxController {
     passwordController.dispose();
     super.onClose();
   }
+
+  var isMobile = true.obs;
+
+  void updateLayout(BoxConstraints constrainst) {
+    isMobile.value = constrainst.maxWidth < 600;
+  }
 }

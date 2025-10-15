@@ -5,7 +5,7 @@ import 'package:todolist_project/controllers/splashscreen_controller.dart';
 
 class SplashscreenPage extends StatelessWidget {
   SplashscreenPage({super.key});
-  final splashController = Get.find<SplashscreenController>();
+  final splashController = Get.put(SplashscreenController());
 
   @override
   Widget build(BuildContext context) {

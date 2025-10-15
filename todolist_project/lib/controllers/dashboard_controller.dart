@@ -4,16 +4,16 @@ import 'package:todolist_project/fragments/history_fragment.dart';
 import 'package:todolist_project/fragments/home_fragment.dart';
 import 'package:todolist_project/fragments/profile_fragment.dart';
 
-class DashboardController extends GetxController{
-  var selectedIndex=0.obs;
+class DashboardController extends GetxController {
+  var selectedIndex = 0.obs;
 
-  final List<Widget> pages=[
+  final List<Widget> pages = [
     HomeFragment(),
     HistoryFragment(),
-    ProfileFragment()
+    ProfileFragment(),
   ];
 
-  void changePage(int index){
-    selectedIndex.value=index;
+  void changePage(int index) {
+    selectedIndex.value = index;
   }
 }
